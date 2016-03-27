@@ -8,7 +8,13 @@ Role Variables
 
 | variable name     | type                   | default | available options and examples       |
 |-------------------|------------------------|---------|--------------------------------------|
-| wan_protocol      | option as text         | static  | * static                             |
+| interfaces        | dict with objects      | static  | key = interface name                 |
+
+Interface structure:
+
+| variable name     | type                   | default | available options and examples       |
+|-------------------|------------------------|---------|--------------------------------------|
+| proto             | option as text         | static  | * static                             |
 |                   |                        |         | * dhcp                               |
 |                   |                        |         | * none = Unmanaged                   |
 |                   |                        |         | * dslite = Dual-Stack Lite (RFC6333) |
@@ -24,8 +30,11 @@ Role Variables
 |                   |                        |         | * pppoa = PPPoATM                    |
 |                   |                        |         | * 3g = UMTS/GPRS/EV-DO               |
 |                   |                        |         | * l2tp                               |
-| wan_username      | text                   | <empty> |                                      |
-| wan_password      | text                   | <empty> |                                      |
+| ifname            | text                   | <empty> | Covered interface (like eth0)        |
+| ipaddr            | text                   | <empty> | IP address (for static proto)        |
+| netmask           | text                   | <empty> | IP netmask (for static proto)        |
+| username          | text                   | <empty> | Username for PPPoE                   |
+| password          | text                   | <empty> | Password for PPPoE                   |
 
 Dependencies
 ------------
@@ -37,9 +46,16 @@ Example Playbook
 
 ```
 - role: openwrt-network
-  wan_protocol: pppoe
-  wan_username: my_username
-  wan_password: my_password
+  interfaces:
+    wan:
+      proto: pppoe
+      username: my_username
+      password: my_password
+    guest:
+      ifname: eth0
+      proto: static
+      ipaddr: 10.0.0.1
+      netmask: 255.255.255.0
 ```
 
 [http://wiki.openwrt.org/doc/uci/network]: http://wiki.openwrt.org/doc/uci/network

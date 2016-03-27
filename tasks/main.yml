@@ -1,21 +1,8 @@
 ---
-- name: set wan protocol
-  uci: command=set config="network" section="wan" option="proto" value={{ wan_protocol }}
-  when: wan_protocol != ''
-  notify:
-    - uci commit network
-    - reload network
-
-- name: set wan username
-  uci: command=set config="network" section="wan" option="username" value={{ wan_username }}
-  when: wan_username != ''
-  notify:
-    - uci commit network
-    - reload network
-
-- name: set wan password
-  uci: command=set config="network" section="wan" option="password" value={{ wan_password }}
-  when: wan_password != ''
-  notify:
-    - uci commit network
-    - reload network
+- name: set interfaces
+  include: set_interfaces.yml
+  vars:
+    section: "{{item.key}}"
+    interface: "{{item.value}}"
+  with_dict: "{{interfaces}}"
+  when: interfaces != {}

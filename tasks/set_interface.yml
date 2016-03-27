@@ -1,0 +1,60 @@
+---
+- name: set ifname
+  uci:
+    command: set
+    config: "network"
+    section: "{{section}}"
+    type: "interface"
+    option: "ifname"
+    value: "{{ifname}}"
+  when: ifname != ''
+  notify:
+    - uci commit network
+
+- name: set ipaddr
+  uci:
+    command: set
+    config: "network"
+    section: "{{section}}"
+    type: "interface"
+    option: "ipaddr"
+    value: "{{ipaddr}}"
+  when: ipaddr != ''
+  notify:
+    - uci commit network
+
+- name: set netmask
+  uci:
+    command: set
+    config: "network"
+    section: "{{section}}"
+    type: "interface"
+    option: "netmask"
+    value: "{{netmask}}"
+  when: netmask != ''
+  notify:
+    - uci commit network
+
+- name: set username
+  uci:
+    command: set
+    config: "network"
+    section: "{{section}}"
+    type: "interface"
+    option: "username"
+    value: "{{username}}"
+  when: username != ''
+  notify:
+    - uci commit network
+
+- name: set password
+  uci:
+    command: set
+    config: "network"
+    section: "{{section}}"
+    type: "interface"
+    option: "password"
+    value: "{{password}}"
+  when: password != ''
+  notify:
+    - uci commit network
