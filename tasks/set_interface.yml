@@ -10,6 +10,7 @@
   when: ifname != ''
   notify:
     - uci commit network
+    - reload network for openwrt-network
 
 - name: set ipaddr
   uci:
@@ -22,6 +23,7 @@
   when: ipaddr != ''
   notify:
     - uci commit network
+    - reload network for openwrt-network
 
 - name: set netmask
   uci:
@@ -34,6 +36,7 @@
   when: netmask != ''
   notify:
     - uci commit network
+    - reload network for openwrt-network
 
 - name: set username
   uci:
@@ -46,6 +49,7 @@
   when: username != ''
   notify:
     - uci commit network
+    - reload network for openwrt-network
 
 - name: set password
   uci:
@@ -58,3 +62,4 @@
   when: password != ''
   notify:
     - uci commit network
+    - reload network for openwrt-network

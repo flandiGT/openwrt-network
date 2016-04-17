@@ -2,5 +2,5 @@
 - name: uci commit network
   uci: command=commit config=network
 
-- name: reload network
+- name: reload network for openwrt-network
   raw: /etc/init.d/network reload
