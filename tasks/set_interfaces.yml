@@ -4,6 +4,7 @@
   vars:
     section: "{{item.key}}"
     proto: "{{item.value.proto | default('')}}"
+    type: "{{item.value.type | default('')}}"
     ifname: "{{item.value.ifname | default('')}}"
     ipaddr: "{{item.value.ipaddr | default('')}}"
     netmask: "{{item.value.netmask | default('')}}"
