@@ -6,3 +6,13 @@
     interface: "{{item.value}}"
   with_dict: "{{interfaces}}"
   when: interfaces != {}
+
+- name: set switch_vlans
+  include: set_switch_vlan.yml
+  vars:
+    index: "{{item.1.index | default(item.0)}}"
+    device: "{{item.1.device}}"
+    vlan: "{{item.1.vlan}}"
+    vid: "{{item.1.vid}}"
+    ports: "{{item.1.ports | default([]) | join(' ')}}"
+  with_indexed_items: "{{switch_vlans}}"

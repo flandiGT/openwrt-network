@@ -6,11 +6,12 @@ configure network aspects of your openwrt system.
 Role Variables
 --------------
 
-| variable name     | type                   | default | available options and examples       |
-|-------------------|------------------------|---------|--------------------------------------|
-| interfaces        | dict with objects      | static  | key = interface name                 |
+| variable name     | type                   | default  | available options and examples             |
+|-------------------|------------------------|----------|--------------------------------------------|
+| interfaces        | dict with objects      | static   | key = interface name                       |
+| switch_vlans      | array with objects     | <empty>  | see attributes in object description below |
 
-Interface structure:
+interface structure:
 
 | variable name     | type                   | default | available options and examples       |
 |-------------------|------------------------|---------|--------------------------------------|
@@ -36,6 +37,16 @@ Interface structure:
 | username          | text                   | <empty> | Username for PPPoE                   |
 | password          | text                   | <empty> | Password for PPPoE                   |
 
+switch_vlans attributes:
+
+| attribute name | property type         | valid values / examples                                          |
+|----------------|-----------------------|------------------------------------------------------------------|
+| index          | array_index as number | specify the element index in network.switch_vlans[] to be edited |
+| device         | switch device as text | like 'switch0'                                                   |
+| vlan           | number                | number of the vlan (begins at 1)                                 |
+| vid            | text                  | custom id of the vlan                                            |
+| ports          | array of strings      | ports to be bridged by this switch (like: [0t, 4, 5])            |
+
 Dependencies
 ------------
 
@@ -56,6 +67,19 @@ Example Playbook
       proto: static
       ipaddr: 10.0.0.1
       netmask: 255.255.255.0
+  switch_vlans: [{
+    index: 0,
+    device: switch0,
+    vlan: 1,
+    vid: 1,
+    ports: [0, 2, 4, 5]
+  }, {
+    index: 2,
+    device: switch0,
+    vlan: 3,
+    vid: 10,
+    ports: [0t, 3]
+  }]
 ```
 
 [http://wiki.openwrt.org/doc/uci/network]: http://wiki.openwrt.org/doc/uci/network
