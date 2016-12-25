@@ -1,11 +1,16 @@
 ---
 - name: set interfaces
-  include: set_interfaces.yml
+  include: set_interface.yml
   vars:
-    section: "{{item.key}}"
-    interface: "{{item.value}}"
+    name: "{{item.key}}"
+    proto: "{{item.value.proto | default('')}}"
+    type: "{{item.value.type | default('')}}"
+    ifname: "{{item.value.ifname | default('')}}"
+    ipaddr: "{{item.value.ipaddr | default('')}}"
+    netmask: "{{item.value.netmask | default('')}}"
+    username: "{{item.value.username | default('')}}"
+    password: "{{item.value.password | default('')}}"
   with_dict: "{{interfaces}}"
-  when: interfaces != {}
 
 - name: set switch_vlans
   include: set_switch_vlan.yml

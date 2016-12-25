@@ -3,7 +3,7 @@
   uci:
     command: set
     config: "network"
-    section: "{{section}}"
+    section: "{{name}}"
     type: "interface"
     option: "ifname"
     value: "{{ifname}}"
@@ -16,7 +16,7 @@
   uci:
     command: set
     config: "network"
-    section: "{{section}}"
+    section: "{{name}}"
     type: "interface"
     option: "ipaddr"
     value: "{{ipaddr}}"
@@ -29,7 +29,7 @@
   uci:
     command: set
     config: "network"
-    section: "{{section}}"
+    section: "{{name}}"
     type: "interface"
     option: "netmask"
     value: "{{netmask}}"
@@ -42,7 +42,7 @@
   uci:
     command: set
     config: "network"
-    section: "{{section}}"
+    section: "{{name}}"
     type: "interface"
     option: "username"
     value: "{{username}}"
@@ -55,7 +55,7 @@
   uci:
     command: set
     config: "network"
-    section: "{{section}}"
+    section: "{{name}}"
     type: "interface"
     option: "password"
     value: "{{password}}"
@@ -68,7 +68,7 @@
   uci:
     command: set
     config: "network"
-    section: "{{section}}"
+    section: "{{name}}"
     type: "interface"
     option: "proto"
     value: "{{proto}}"
@@ -81,7 +81,7 @@
   uci:
     command: set
     config: "network"
-    section: "{{section}}"
+    section: "{{name}}"
     type: "interface"
     option: "type"
     value: "{{type}}"
