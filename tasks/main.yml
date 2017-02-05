@@ -10,6 +10,7 @@
     netmask: "{{item.value.netmask | default('')}}"
     username: "{{item.value.username | default('')}}"
     password: "{{item.value.password | default('')}}"
+    auto: "{{item.value.auto | default('')}}"
   with_dict: "{{interfaces}}"
 
 - name: set switch_vlans

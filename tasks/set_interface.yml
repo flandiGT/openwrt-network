@@ -89,3 +89,16 @@
   notify:
     - uci commit network
     - reload network for openwrt-network
+
+- name: set auto
+  uci:
+    command: set
+    config: "network"
+    section: "{{name}}"
+    type: "interface"
+    option: "auto"
+    value: "{{auto | int}}"
+  when: auto != ''
+  notify:
+    - uci commit network
+    - reload network for openwrt-network
