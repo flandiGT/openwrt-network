@@ -1,24 +1,36 @@
 ---
 - name: set interfaces
-  include: set_interface.yml
-  vars:
-    name: "{{item.key}}"
-    proto: "{{item.value.proto | default('')}}"
-    type: "{{item.value.type | default('')}}"
-    ifname: "{{item.value.ifname | default('')}}"
-    ipaddr: "{{item.value.ipaddr | default('')}}"
-    netmask: "{{item.value.netmask | default('')}}"
-    username: "{{item.value.username | default('')}}"
-    password: "{{item.value.password | default('')}}"
-    auto: "{{item.value.auto | default('')}}"
+  uci:
+    command: set_object
+    config: network
+    type: interface
+    section: '{{item.key}}'
+    values:
+      proto: "{{item.value.proto | default(None)}}"
+      type: "{{item.value.type | default(None)}}"
+      ifname: "{{item.value.ifname | default(None)}}"
+      ipaddr: "{{item.value.ipaddr | default(None)}}"
+      netmask: "{{item.value.netmask | default(None)}}"
+      username: "{{item.value.username | default(None)}}"
+      password: "{{item.value.password | default(None)}}"
+      auto: "{{item.value.auto | default(None) | int(None)}}"
   with_dict: "{{interfaces}}"
+  notify:
+    - uci commit network
+    - reload network for openwrt-network
 
 - name: set switch_vlans
-  include: set_switch_vlan.yml
-  vars:
+  uci:
+    command: set_object
+    config: network
+    type: switch_vlan
     index: "{{item.1.index | default(item.0)}}"
-    device: "{{item.1.device}}"
-    vlan: "{{item.1.vlan}}"
-    vid: "{{item.1.vid}}"
-    ports: "{{item.1.ports | default([]) | join(' ')}}"
+    values:
+      device: "{{item.1.device}}"
+      vlan: "{{item.1.vlan}}"
+      vid: "{{item.1.vid}}"
+      ports: "{{item.1.ports | default([]) | join(' ')}}"
   with_indexed_items: "{{switch_vlans}}"
+  notify:
+    - uci commit network
+    - reload network for openwrt-network
