@@ -27,6 +27,8 @@ interface structure:
 | netmask           | text                   | IP netmask (for static proto)        |
 | username          | text                   | username for PPPoE                   |
 | password          | text                   | password for PPPoE                   |
+| ipv6              | boolean                | Enable IPv6 on the PPP link (IPv6CP) |
+| delegate          | boolean                | Use builtin IPv6-management          |
 
 switch_vlans attributes:
 
@@ -48,6 +50,8 @@ Example Playbook
       proto: pppoe
       username: my_username
       password: my_password
+      ipv6: False
+      delegate: False
     vpn:
       ifname: tun0
       proto: none

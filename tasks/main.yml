@@ -14,6 +14,8 @@
       username: "{{ item.value.username | default(None) }}"
       password: "{{ item.value.password | default(None) }}"
       auto: "{{ item.value.auto | default(None) | int(None) }}"
+      ipv6: "{{ item.value.ipv6 | default(None) | int(None) }}"
+      delegate: "{{ item.value.ipv6 | default(None) | int(None) }}"
   with_dict: "{{ interfaces }}"
   notify:
     - uci commit network
